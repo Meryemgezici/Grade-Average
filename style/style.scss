@@ -1,0 +1,207 @@
+// yazı fontu
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200&family=Raleway:wght@300&family=Roboto:wght@300&display=swap');
+
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    font-family: "Poppins", sans-serifs;
+
+}
+
+body {
+    background: linear-gradient(180deg, #8b62f1 47%, white 7.5%);
+    height: 100vh;
+}
+
+.container {
+    background-color: #151a30;
+    border-radius: 1rem;
+    max-width: 500px;
+    margin: 0 auto;
+    margin-top: 100px;
+    padding: 20px;
+    color: white;
+
+    h1 {
+        text-align: center;
+        margin-bottom: 25px;
+    }
+
+    form {
+        // border: 5px solid red;
+        margin-bottom: 25px;
+
+        .form-group {
+
+            margin-bottom: 10px;
+
+            input[type="text"],
+            input[type="number"] {
+                width: 100%;
+                padding: 10px;
+                border-radius: 15px;
+                border: 2px solid #96228ea7;
+                outline: none;
+                background-color: transparent;
+                color: white;
+
+                &::placeholder {
+                    color: rgba(128, 128, 128, 0.651);
+                }
+            }
+        }
+
+        button {
+            display: block;
+            padding: 10px 25px;
+            margin: auto;
+            border: none;
+            border-radius: 15px;
+            font-size: 23px;
+            color: white;
+            cursor: pointer;
+            background: linear-gradient(120deg, rgb(152, 56, 226), rgb(102, 55, 153));
+
+            &:hover {
+                transform: scale(1.1);
+                transition: ease .5s;
+            }
+        }
+    }
+
+    .student-satate {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        border-top: 2px solid rgb(183, 165, 165);
+        padding-top: 20px;
+        margin-bottom: 10px;
+
+        div {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+
+            i {
+                height: 20px;
+                width: 20px;
+                background-color: #8b62f1;
+                border-radius: 50%;
+                margin-left: 10px;
+
+                &:nth-child(1) {
+                    background-color: #15aefe;
+                }
+
+                &:nth-child(1) {
+                    background-color: #f47121;
+                }
+
+                &:nth-child(1) {
+                    background-color: #630eff;
+                }
+
+                &:nth-child(1) {
+                    background-color: #ff0fe4;
+                }
+            }
+        }
+    }
+
+    #student-list {
+        border: 5px solid red;
+        padding: 10px;
+        height: 280px;
+        overflow-y: scroll;
+        border: 2px solid #652b60;
+
+
+        .empty {
+            text-align: center;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100%;
+            font-size: 20px;
+
+        }
+
+        .student-item {
+
+            padding: 10px;
+            margin-bottom: 10px;
+            width: 100%;
+            border-radius: 15px;
+            display: flex;
+
+            &-info {
+
+                display: flex;
+                flex-direction: column;
+                align-items: start;
+                width: 75%;
+
+            }
+
+            &-process {
+
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                width: 25%;
+                gap: 5px;
+
+                .delete-button {
+                    background-color: white;
+                    color: #dc3545;
+                    padding: 5px;
+                    border-radius: 50%;
+                    font-size: 25px;
+
+                    &:hover {
+                        cursor: pointer;
+                        transform: scale(1.1);
+                        transition: ease 0.5;
+                    }
+
+                }
+
+                .edit-button {
+                    background-color: #ffc107;
+                    color: black;
+                    padding: 5px;
+                    border-radius: 50%;
+                    font-size: 25px;
+
+                    &:hover {
+                        cursor: pointer;
+                        transform: scale(1.1);
+                        transition: ease 0.5;
+                    }
+                }
+            }
+        }
+
+    }
+}
+
+// Scrollbar
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+::-webkit-scrollbar-track {
+    background-color: #f1f1f1;
+    border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: gray;
+    border-radius: 20px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background-color: #555;
+    border-radius: 20px;
+}
