@@ -85,13 +85,13 @@ body {
 .container .student-satate div i:nth-child(1) {
   background-color: #15aefe;
 }
-.container .student-satate div i:nth-child(1) {
+.container .student-satate div i:nth-child(3) {
   background-color: #f47121;
 }
-.container .student-satate div i:nth-child(1) {
+.container .student-satate div i:nth-child(5) {
   background-color: #630eff;
 }
-.container .student-satate div i:nth-child(1) {
+.container .student-satate div i:nth-child(7) {
   background-color: #ff0fe4;
 }
 .container #student-list {

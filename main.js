@@ -16,10 +16,6 @@ if (isThereLocal) {//localStorage da kayıtlı ise
 }
 
 
-// Öğrenci bilgilerini localstorage tutulması
-function saveLocalStorge() {
-    localStorage.setItem("students", JSON.stringify(students));
-}
 
 
 // Öğrenci formunu seçme
@@ -30,6 +26,7 @@ const studentList = document.querySelector("#student-list");
 
 const addButton = document.querySelector(".add");
 
+// viewStudent();
 
 studentForm.addEventListener("submit", (e) => {
     //form ile submit değildiğinde sayfa yenilendiği için yenilemeyi iptal eder
@@ -56,9 +53,14 @@ studentForm.addEventListener("submit", (e) => {
     console.log("Sonuç:", newStudent);
 
     studentForm.reset();
+
+    // Öğrenci listesini local storage kaydetme
     saveLocalStorge()
+    // Öğrenci listesini görüntüleme
+    viewStudent();
     console.log("students:", students);
 })
+
 
 viewStudent();
 
@@ -66,7 +68,13 @@ function viewStudent() {
     const emptyList = document.querySelector(".empty");
 
     if (students.length) {
-        console.log("dolu")
+
+        if (emptyList) {
+            emptyList.style.display = "none";
+        }
+
+        studentList.innerHTML = "";
+
 
         students.forEach((currentValue, index) => {
             const studentCard =
@@ -77,39 +85,39 @@ function viewStudent() {
                 <p>Ortalama: ${((Number(currentValue.midterm) + Number(currentValue.final)) / 2).toFixed(2)}</p>
             </div>
             <div class="student-item-process">
-                <i class="fa-solid fa-pen-to-square edit-button"></i>
-                <i class="fa-solid fa-trash delete-button"></i>
+                <i class="fa-solid fa-pen-to-square edit-button" onclick="editStudent(${index})"></i>
+                <i class="fa-solid fa-trash delete-button" onclick="deleteStudent(${index})"></i>
             </div>
       
             `;
 
             // öğrenci bilgisini içeren eleman oluşturma student-item classı
-            const studentItem=document.createElement("div");//create element ile bir div oluştturma
+            const studentItem = document.createElement("div");//create element ile bir div oluştturma
             studentItem.classList.add("student-item");//studentItem divine class ekleme
-            studentItem.innerHTML=studentCard;
-            console.log("studentList",studentList);
+            studentItem.innerHTML = studentCard;
+            // console.log("studentList",studentList);
 
 
-            
-      const average = ((Number(currentValue.midterm) + Number(currentValue.final)) / 2).toFixed(2);
-      
-      if (average > 80) {
-        // console.log('80 den buyuk',ortalama)
-        studentItem.style.background = "#15aefe";
-      } else if (average > 60) {
-        // console.log('60 den buyuk',ortalama)
-        studentItem.style.background = "#f47121";
-      } else if (average > 45) {
-        // console.log('45 den buyuk',ortalama)
-        studentItem.style.background = "#630eff";
-      } else {
-        // console.log('45 den küçük',ortalama)
-        studentItem.style.background = "#ff0fe4";
-        /* studenItem.cssText= `
-          background:red;
-          border:yellow 2px solid;
-            ` */
-      }
+
+            const average = ((Number(currentValue.midterm) + Number(currentValue.final)) / 2).toFixed(2);
+
+            if (average > 80) {
+                // console.log('80 den buyuk',ortalama)
+                studentItem.style.background = "#15aefe";
+            } else if (average > 60) {
+                // console.log('60 den buyuk',ortalama)
+                studentItem.style.background = "#f47121";
+            } else if (average > 45) {
+                // console.log('45 den buyuk',ortalama)
+                studentItem.style.background = "#630eff";
+            } else {
+                // console.log('45 den küçük',ortalama)
+                studentItem.style.background = "#ff0fe4";
+                /* studenItem.cssText= `
+                  background:red;
+                  border:yellow 2px solid;
+                    ` */
+            }
             // öğrenci elemanını listeye ekleme
             studentList.appendChild(studentItem);
 
@@ -118,14 +126,71 @@ function viewStudent() {
         });
 
     } else {
-        console.log("boş");
+
 
         const forEmpty = `
         <p class="empty">Listenizde öğrenci bulunmamaktadır.</p>`;
 
         studentList.innerHTML = forEmpty;
-        console.log(studentList.innerHTML);
+
     }
 }
 
+// Öğrencileri silme
+function deleteStudent(deleteIndex) {
+    console.log("sildi.");
+
+    const newStudentList = students.filter((currentValue, index) => {
+
+        // silinecek öğrenci için mesaj yazdır
+        // if(index === deleteIndex){
+        //     Toastify({
+
+        //         text: `${currentValue.name} öğrenci listeden silindi.`,
+
+        //         duration: 3000
+
+        //         }).showToast();
+        // }
+        return index !== deleteIndex;
+    });
+
+    const deleteStudent = students.find((currentValue, index) => index === deleteIndex);
+    Toastify({
+
+        text: `${deleteStudent.name} adlı öğrenci listeden silindi.`,
+
+        duration: 3000
+
+    }).showToast();
+
+
+
+    students = newStudentList;
+
+    saveLocalStorge();
+    viewStudent();
+}
+
+
+// Öğrenci bilgilerini düzenleme
+function editStudent(editIndex) {
+    console.log("düzenlendi");
+
+    const editStudent = students.find((currentValue, index) => index === editIndex);
+
+    document.querySelector("#name").value = editStudent.name;
+    document.getElementById("surname").value = editStudent.surname;
+    document.getElementById("number").value = editStudent.number;
+    document.getElementById("midterm").value = editStudent.midterm;
+    document.querySelector("#final").value = editStudent.final;
+
+    deleteStudent(editIndex);
+    saveLocalStorge();
+
+}
+// Öğrenci bilgilerini localstorage tutulması
+function saveLocalStorge() {
+    localStorage.setItem("students", JSON.stringify(students));
+}
 
